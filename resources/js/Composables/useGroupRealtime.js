@@ -5,9 +5,7 @@ import echo from '@/echo'
 export function useGroupRealtime(groupId, {onMessageReceived, onUserJoined, onUserLeft}) {
     let channel = null
 
-    const setupGroupRealtimeListeners = () => {
-        console.log('Setting up realtime listeners for group:', groupId)
-        
+    const setupGroupRealtimeListeners = () => {        
         // Fix 1: Use the correct channel name with groupId
         channel = echo.private(`group.${groupId}`)
             .listen('GroupMessageSent', (e) => {
@@ -21,7 +19,6 @@ export function useGroupRealtime(groupId, {onMessageReceived, onUserJoined, onUs
                 }
             })
             .listen('UserLeftGroup', (e) => {
-                console.log('User left:', e.user.name)
                 if (onUserLeft) {
                     onUserLeft(e.user)
                 }

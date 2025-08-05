@@ -27,7 +27,7 @@ const props = defineProps({
 })
 
 // If message and authUserId are provided, always compute status in real-time
-const computedStatus = computed(() => {
+const computedStatus = computed(() => {  
   if (props.message && props.authUserId !== undefined) {
     return getMessageStatus(props.message, props.authUserId)
   }

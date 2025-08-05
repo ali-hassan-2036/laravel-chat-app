@@ -30,7 +30,6 @@ export function useChatMessages(initialMessages, user, authUserId) {
         const msg = findMessage(messageId, updates.message, updates.sender_id || authUserId)
         if (msg) {
             Object.assign(msg, updates)
-            console.log('Message status updated:', msg.status, updates)
         } else {
             console.log('Message not found for status update:', messageId, updates)
         }
@@ -52,7 +51,6 @@ export function useChatMessages(initialMessages, user, authUserId) {
                 delivered_at: realMessage.delivered_at || null,
                 is_read: realMessage.is_read || false
             }
-            console.log('Replaced temporary message with real message:', chatMessages.value[index])
         }
     }
 
@@ -72,17 +70,13 @@ export function useChatMessages(initialMessages, user, authUserId) {
         }
         
         addMessage(tempMessage)
-        console.log('Added temporary message:', tempMessage)
 
         router.post(route('chat.store'), {
             receiver_id: user.id,
             message: messageText
         }, {
             preserveScroll: true,
-            onSuccess: (page) => {
-                console.log('Message sent successfully, page data:', page)
-                
-                // Try to find the new message in the response
+            onSuccess: (page) => {                
                 // This depends on your backend returning the new message
                 if (page.props && page.props.messages) {
                     const newMessage = page.props.messages.find(m => 

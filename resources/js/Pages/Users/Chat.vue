@@ -85,7 +85,6 @@ const sendTypingEvent = () => {
     
     // Only send if not empty and not just whitespace
     if (!newMessage.value.trim()) return
-    console.log('sendTypingEvent');
     // Throttle: only send if at least 1s since last sent
     const now = Date.now()
     if (now - lastTypedAt < 1000) return
@@ -103,8 +102,6 @@ onMounted(() => {
     // RECEIVER: Listen for incoming messages on chat.{authUserId}
     echo.private(`chat.${props.authUserId}`)
         .listen('MessageSent', (e) => {
-            console.log('MessageSent', e.message);
-
             // Only add if from the user we're chatting with
             if (e.message.sender_id == props.user.id) {
                 chatMessages.value.push({ ...e.message })
@@ -134,7 +131,6 @@ onMounted(() => {
     // SENDER: Listen for delivery/read updates on chat.{authUserId} (your own channel)
     echo.private(`chat.${props.authUserId}`)
         .listen('MessageDelivered', (e) => {
-            console.log('MessageDelivered', e.message);
 
             const msg = chatMessages.value.find(m =>
                 m.id === e.message.id ||
@@ -146,7 +142,6 @@ onMounted(() => {
             }
         })
         .listen('MessageRead', (e) => {
-            console.log('MessageRead', e.message);
 
             const msg = chatMessages.value.find(m =>
                 m.id === e.message.id ||

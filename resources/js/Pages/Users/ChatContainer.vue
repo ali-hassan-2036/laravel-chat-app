@@ -64,13 +64,11 @@
   
   const { sendTypingEvent } = useChatRealtime(props.user, props.authUserId, {
   onMessageReceived: (message) => {
-    console.log('Adding received message:', message)
     addMessage(message)
     markAsDelivered()
     markAsRead()
   },
   onMessageDelivered: (message) => {
-    console.log('Updating message as delivered:', message)
     updateMessageStatus(message.id, {
       delivered_at: message.delivered_at,
       status: 'delivered',
@@ -79,7 +77,6 @@
     })
   },
   onMessageRead: (message) => {
-    console.log('Updating message as read:', message)
     updateMessageStatus(message.id, {
       is_read: true,
       status: 'read',
@@ -98,7 +95,7 @@
 })
   
   // Event handlers
-  const handleSendMessage = (messageText) => {    
+  const handleSendMessage = (messageText) => {  
     sendMessage(messageText)
   }
   

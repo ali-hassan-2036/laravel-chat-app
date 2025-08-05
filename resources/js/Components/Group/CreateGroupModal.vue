@@ -111,8 +111,6 @@
   const createGroup = () => {
     processing.value = true
     
-    console.log('createForm', createForm);
-
     const formData = new FormData()
     formData.append('name', createForm.name)
     formData.append('description', createForm.description)
@@ -121,11 +119,6 @@
 
     if (createForm.image) {
         formData.append('image', createForm.image)
-    }
-
-    // Optional: log to verify
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value)
     }
     
     router.post(route('groups.store'), formData, {
