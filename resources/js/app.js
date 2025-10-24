@@ -8,6 +8,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+// Echo is already configured in bootstrap.js and available as window.Echo
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
